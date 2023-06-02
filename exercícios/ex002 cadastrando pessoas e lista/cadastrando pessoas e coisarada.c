@@ -2,44 +2,48 @@
 #include <locale.h>
 void main(){
     setlocale(LC_ALL, "Portuguese");
+
+    char nome1[20], nome2[20], nome3[20];
+    char sex1, sex2, sex3;
+    float nota1, nota2, nota3;
+
     printf("Cadastrando a primeira pessoa:\n");
     printf("------------------------------\n");
     printf("Nome: ");
-    char nome1[30];
     gets(nome1);
+
     printf("Sexo [M/F]: ");
-    char sex1;
     sex1 = getchar();
     fflush(stdin);
+
     printf("Nota: ");
-    float nota1;
     scanf("%f", &nota1);
 
     printf("\nCadastrando a segunda pessoa:\n");
     printf("-------------------------------\n");
     fflush(stdin);
+
     printf("Nome: ");
-    char nome2[30];
     gets(nome2);
+
     printf("Sexo [M/F]: ");
-    char sex2;
     sex2 = getchar();
+
     printf("Nota: ");
-    float nota2;
     scanf("%f", &nota2);
     fflush(stdin);
 
     printf("\nCadastrando a terceira pessoa:\n");
     printf("-----------------------------\n");
     fflush(stdin);
+
     printf("Nome: ");
-    char nome3[30];
     gets(nome3);
+
     printf("Sexo [M/F]: ");
-    char sex3;
     sex3 = getchar();
+
     printf("Nota: ");
-    float nota3;
     scanf("%f", &nota3);
 
 
