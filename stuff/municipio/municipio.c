@@ -476,50 +476,6 @@ float variancia(int ini, int fin){
     return variancia;
 }
 
-float desviop(int ini, int fin){
-    float resp;
-    resp = sqrt(variancia(ini, fin));
-    return resp;
-}
-
-int menorqtdmuni(void){
-    int verif = 0, menorcol, dado, menorfaixa;
-    int qtdmenorpessoas[399] = {};
-    int faixaEtariadoMenor[399] = {};
-    const char* faixa[19] = {"menos de 1 ano","1 a 4 anos","5 a 9 anos","10 a 14 anos","15 a 19 anos","20 a 24 anos","25 a 29 anos","30 a 34 anos","35 a 39 anos","40 a 44 anos","45 a 49 anos","50 a 54 anos","55 a 59 anos","60 a 64 anos","65 a 69 anos","70 a 74 anos","75 a 79 anos","80 anos ou mais"};
-
-
-    for(int lin=0; lin<399; lin++){         //passa por todas as linhas (municipios)
-        for(int col=13; col <18; col++){    // passa por todas as colunas no intervalo que pede (acima de 60 anos) = (coluna 13 até a coluna 17)
-            dado = idades[lin][col];        // o dado analisado no momento
-            if(col==13){
-             menorcol = dado;               // se for a primeira coluna a ser analisada, o dado analisado vai ser o menor
-             menorfaixa = col;
-            }else if(dado<menorcol) {       // se o dado atual for menor do que o dado anterior, o menor número recebe o dado atual
-                menorcol = dado;
-                menorfaixa = col;
-            }
-        }
-        qtdmenorpessoas[lin] = menorcol;
-        faixaEtariadoMenor[lin] = menorfaixa;
-    };
-
-    printf("\nLevando em conta a faixa etária de pessoas acima de 60 anos");
-    printf("\n-------------------------------------------------------------------------");
-    printf("\n           \t\t    MENOR QUANTIDADE DE");
-    printf("\n  MUNICÍPIO\t\t    PESSOAS NOS INTERVALOS\t   INTERVALO");;
-    printf("\n                            ACIMA DE 60 ANOS");
-    printf("\n-------------------------------------------------------------------------");
-    for(int penis = 0; penis < 399; penis++){
-        printf("\n%i° Município       \t\t%i pessoas\t\t%s",penis+1,qtdmenorpessoas[penis],faixa[faixaEtariadoMenor[penis]]);
-  };
-    printf("\n-------------------------------------------------------------------------");
-
-
-
-    return;
-}
-
 
 
 
@@ -529,35 +485,54 @@ int menorqtdmuni(void){
 
 int main(){
     setlocale(LC_ALL, "Portuguese");
-    int opc;
-    do{
-        opc = menu();
-        switch(opc){
-            case 1:
-                printf("\nOpção 1 escolhida.");
-                printf("\nA variância da faixa etária de jovens adultos de 25 a 39 anos de idade é igual a %f\n\n", variancia(25, 39));
-                break;
-            case 2:
-                printf("\nOpção 2 escolhida.");
-                printf("\nO desvio padrão da faixa etária de adultos de 40 a 59 anos de idade é igual a %f\n\n", desviop(40, 59));
-                break;
-            case 3:
-                printf("\nOpção 3 escolhida.");
-                menorqtdmuni();
-                break;
-            case 4:
-                printf("\nOpção ainda não disponível");
-                break;
-            case 5:
-                printf("\nSaindo do programa...");
-                break;
-            default:
-                printf("\nOpção inválida. Por favor, escolha novamente");
-                break;
+
+    int verif = 0, menorcol, menormuni, dado, menorfaixa;
+
+
+    int qtdmenorpessoas[399] = {};
+    int faixaEtariadoMenor[399] = {};
+//    char faixa[20] = {"menos de 1","1 a 4","5 a 9","10 a 14","15 a 19","20 a 24","25 a 29","30 a 34","35 a 39","40 a 44","45 a 49","50 a 54","55 a 59","60 a 64","65 a 69","70 a 74","75 a 79","80 e mais"};
+    const char* faixa[19] = {"menos de 1 ano","1 a 4 anos","5 a 9 anos","10 a 14 anos","15 a 19 anos","20 a 24 anos","25 a 29 anos","30 a 34 anos","35 a 39 anos","40 a 44 anos","45 a 49 anos","50 a 54 anos","55 a 59 anos","60 a 64 anos","65 a 69 anos","70 a 74 anos","75 a 79 anos","80 anos ou mais"};
+
+
+
+
+    for(int lin=0; lin<399; lin++){         //passa por todas as linhas (municipios)
+        for(int col=13; col <18; col++){    // passa por todas as colunas no intervalo que pede (acima de 60 anos) = (coluna 13 até a coluna 17)
+            dado = idades[lin][col];        // o dado analisado no momento
+            if(col==13){
+             //   menormuni =
+             menorcol = dado;               // se for a primeira coluna a ser analisada, o dado analisado vai ser o menor
+             menorfaixa = col;
+            }else if(dado<menorcol) {       // se o dado atual for menor do que o dado anterior, o menor número recebe o dado atual
+                menorcol = dado;
+                menorfaixa = col;
+            }
         }
-    }while (opc != 5);
+        //aqui tem que colocar em alguma lista o menor dado e o nº do municipio  , antes de passar pra proxima linha(municipio)
+        qtdmenorpessoas[lin] = menorcol;
+        faixaEtariadoMenor[lin] = menorfaixa;
+    };
 
 
+
+
+
+
+    //O menor número de pessoas por município dentro da faixa de idosos acima de 60 anos
+
+
+    printf("\nLevando em conta a faixa etária de pessoas acima de 60 anos");
+    printf("\n-------------------------------------------------------------------------");
+    printf("\n           \t\t    MENOR QUANTIDADE DE");
+    printf("\n  MUNICÍPIO\t\t    PESSOAS NOS INTERVALOS\t   INTERVALO");;
+    printf("\n                            ACIMA DE 60 ANOS");
+    printf("\n-------------------------------------------------------------------------");
+    for(int penis = 0; penis < 399; penis++){
+        printf("\n%i° Município       \t\t%i pessoas\t\t%s",penis+1,qtdmenorpessoas[penis],faixa[faixaEtariadoMenor[penis]]);
+//        printf("\n\n%i° município: a menor quantidade de pessoas está na faixa %s com %i pessoas",penis+1, faixa[faixaEtariadoMenor[penis]],qtdmenorpessoas[penis]);
+    };
+    printf("\n-------------------------------------------------------------------------");
 
 
 

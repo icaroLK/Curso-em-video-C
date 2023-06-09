@@ -2,33 +2,6 @@
 #include <locale.h>
 #include <math.h>
 
-
-
-int menu(void){
-    while (1){
-        int opc;
-        printf("\n===============================================================================================================================");
-        printf("\n                                                           MENU PRINCIPAL");
-        printf("\n===============================================================================================================================");
-        printf("\n 1. Variância de jovens adultos de 25 a 39 anos de idade");
-        printf("\n 2. Desvio padrão de adultos de 40 a 59 anos de idade");
-        printf("\n 3. O menor número de pessoas por município dentro da faixa de idosos acima de 60 anos");
-        printf("\n 4. A média da quantidade de pessoas dos 5 municípios com os maiores números de pessoas dentro da faixa de crianças até 9 anos");
-        printf("\n 5. Encerrar o programa");
-        printf("\n===============================================================================================================================\n");
-        printf("\nSua opção: ");
-        scanf("%i", &opc);
-        fflush(stdin);
-        if(opc==1 || opc==2 || opc==3 || opc==4 || opc==5){
-            return opc;
-        }
-        else{
-            system("cls");
-            printf("\nDados inválidos!\nTente novamente");
-        }
-    }
-}
-
 int idades[][18] = {{82,387,511,687,749,593,537,530,548,592,555,500,387,337,271,223,143,132},
 {83,394,590,702,624,416,434,372,385,392,385,351,330,246,228,185,126,133},
 {118,473,642,859,807,614,619,587,586,577,568,474,366,324,260,200,92,104},
@@ -438,6 +411,7 @@ float variancia(int ini, int fin){
 
     int frequencias[3] = {0, 0, 0};
 
+
     col = 6;                                          // o intervalo de 25 - 29 começa na coluna 6
     for(int inter=0; inter<3; inter++){               // o intervalo de 25 a 39 anos tem 3 colunas (inter<3)
         for(int c=0; c<qtdidades; c++){               // pra cada coluna o FOR perco
@@ -445,6 +419,9 @@ float variancia(int ini, int fin){
         }
         col++;                                        // começava na coluna 6, nesse caso soma até 3 vezes pra percorrer até a coluna 9
     }
+
+
+
 
     int medias[][3] ={
     {ini,ini+4,frequencias[0]},
@@ -472,8 +449,16 @@ float variancia(int ini, int fin){
         printf("\n XMquadxfreq: %.0f", XMquadxfreq);
 *****************************************************/
     };
+
     variancia = 1/freqFIM * ( XMquadxfreqFIM - (XMxfreqFIM * XMxfreqFIM)/freqFIM );   //formula da variancia
     return variancia;
+
+
+
+
+
+
+
 }
 
 float desviop(int ini, int fin){
@@ -482,80 +467,15 @@ float desviop(int ini, int fin){
     return resp;
 }
 
-int menorqtdmuni(void){
-    int verif = 0, menorcol, dado, menorfaixa;
-    int qtdmenorpessoas[399] = {};
-    int faixaEtariadoMenor[399] = {};
-    const char* faixa[19] = {"menos de 1 ano","1 a 4 anos","5 a 9 anos","10 a 14 anos","15 a 19 anos","20 a 24 anos","25 a 29 anos","30 a 34 anos","35 a 39 anos","40 a 44 anos","45 a 49 anos","50 a 54 anos","55 a 59 anos","60 a 64 anos","65 a 69 anos","70 a 74 anos","75 a 79 anos","80 anos ou mais"};
-
-
-    for(int lin=0; lin<399; lin++){         //passa por todas as linhas (municipios)
-        for(int col=13; col <18; col++){    // passa por todas as colunas no intervalo que pede (acima de 60 anos) = (coluna 13 até a coluna 17)
-            dado = idades[lin][col];        // o dado analisado no momento
-            if(col==13){
-             menorcol = dado;               // se for a primeira coluna a ser analisada, o dado analisado vai ser o menor
-             menorfaixa = col;
-            }else if(dado<menorcol) {       // se o dado atual for menor do que o dado anterior, o menor número recebe o dado atual
-                menorcol = dado;
-                menorfaixa = col;
-            }
-        }
-        qtdmenorpessoas[lin] = menorcol;
-        faixaEtariadoMenor[lin] = menorfaixa;
-    };
-
-    printf("\nLevando em conta a faixa etária de pessoas acima de 60 anos");
-    printf("\n-------------------------------------------------------------------------");
-    printf("\n           \t\t    MENOR QUANTIDADE DE");
-    printf("\n  MUNICÍPIO\t\t    PESSOAS NOS INTERVALOS\t   INTERVALO");;
-    printf("\n                            ACIMA DE 60 ANOS");
-    printf("\n-------------------------------------------------------------------------");
-    for(int penis = 0; penis < 399; penis++){
-        printf("\n%i° Município       \t\t%i pessoas\t\t%s",penis+1,qtdmenorpessoas[penis],faixa[faixaEtariadoMenor[penis]]);
-  };
-    printf("\n-------------------------------------------------------------------------");
-
-
-
-    return;
-}
-
-
-
-
-
-
-
-
 int main(){
     setlocale(LC_ALL, "Portuguese");
-    int opc;
-    do{
-        opc = menu();
-        switch(opc){
-            case 1:
-                printf("\nOpção 1 escolhida.");
-                printf("\nA variância da faixa etária de jovens adultos de 25 a 39 anos de idade é igual a %f\n\n", variancia(25, 39));
-                break;
-            case 2:
-                printf("\nOpção 2 escolhida.");
-                printf("\nO desvio padrão da faixa etária de adultos de 40 a 59 anos de idade é igual a %f\n\n", desviop(40, 59));
-                break;
-            case 3:
-                printf("\nOpção 3 escolhida.");
-                menorqtdmuni();
-                break;
-            case 4:
-                printf("\nOpção ainda não disponível");
-                break;
-            case 5:
-                printf("\nSaindo do programa...");
-                break;
-            default:
-                printf("\nOpção inválida. Por favor, escolha novamente");
-                break;
-        }
-    }while (opc != 5);
+
+//    desviop = sqrt(variancia);                                                        //formula do desvio padrao
+
+
+
+
+printf("\n Variancia: %f", variancia(25,39));
 
 
 
@@ -563,8 +483,12 @@ int main(){
 
 
 
+printf("\n Desvio Padrão: %f", desviop(25, 39));
 
 
 
+
+
+printf("\n\n\n");
 return 0;
 }
